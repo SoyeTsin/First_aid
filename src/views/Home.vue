@@ -1,17 +1,18 @@
 <template>
     <div id="home" ref="mian" :style="home_bg">
-        <div class="time">
-            <Time></Time>
+        <div class="content">
+            <div class="time">
+                <Time></Time>
+            </div>
+            <div class="title">
+                浙江急救大数据平台
+            </div>
+            <HomeButton></HomeButton>
         </div>
-        <div class="title">
-            浙江急救大数据平台
-        </div>
-        <HomeButton></HomeButton>
     </div>
 </template>
 
 <script>
-    console.log(process.env.VUE_APP_API)
     import HomeButton from '../components/HomeButton.vue'
     import Time from '../components/Time.vue'
 
@@ -37,12 +38,25 @@
     @bodyHeight: 1080px;
     @bodyWidth: 1110px;
     #home {
-        min-width: 1920px;
-        min-height: @bodyHeight;
+        width: 100%;
         height: 100%;
+        min-width: 1920px;
+        min-height: 1024px;
+        position: absolute;
+        top: 0;
+        left: 0;
         background-repeat: no-repeat;
-        position: relative;
-        background-size: 100%;
+        background-size:100% 100%;
+        background-color: rgb(13, 19, 38);
+
+        .content {
+            width: 1920px;
+            height: 1024px;
+            text-align: center;
+            margin: auto;
+            position: relative;
+            background-repeat: no-repeat;
+        }
 
         .time {
             width: 246px;

@@ -315,7 +315,11 @@
         min-width: 1920px;
         min-height: @map_height;
         overflow: hidden;
-        position: relative;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     .map {
@@ -325,6 +329,10 @@
         min-height: @map_height+50px;
         background-color: #e5e5e5;
         z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
 

@@ -53,23 +53,12 @@
     .map-body {
         min-width: 1920px;
         min-height: 1080px;
-        position: relative;
         overflow: hidden;
-
-        .top {
-            position: absolute;
-            top: 0;
-            z-index: 5;
-        }
-
-        .map {
-            position: absolute;
-            top: 0;
-            left: 0;
-            min-width: 1920px;
-            min-height: 1080px;
-            overflow: hidden;
-        }
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
 </style>

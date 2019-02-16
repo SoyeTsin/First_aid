@@ -1,11 +1,11 @@
 <template>
     <div class="pan-body">
+        <Top></Top>
         <div class="content">
             <LeftContent></LeftContent>
             <RightContent></RightContent>
             <BottomContent></BottomContent>
             <MiddleContent></MiddleContent>
-            <Top></Top>
         </div>
     </div>
 </template>
@@ -41,13 +41,23 @@
         background-color: #0a0f25;
         min-width: @bodyWidth;
         min-height: @bodyHeight;
-        height: 100vh;
+        position: absolute;
+        width: 100%;
+        height: 100%;
         margin: auto;
+
         .content {
-            position: relative;
+            position: absolute;
             min-width: @bodyWidth;
             min-height: @bodyHeight;
+            width: 100%;
             height: 100%;
+            text-align: center;
+            margin: auto;
+            background-repeat: no-repeat;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             overflow: hidden;
         }
     }

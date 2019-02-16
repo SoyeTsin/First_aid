@@ -20,11 +20,11 @@
         components: {
             Time,
         },
-        methods:{
-            intoIndex(){
+        methods: {
+            intoIndex() {
                 this.$router.push({  //核心语句
-                    path:'/',   //跳转的路径
-                    query:{           //路由传参时push和query搭配使用 ，作用时传递参数
+                    path: '/',   //跳转的路径
+                    query: {           //路由传参时push和query搭配使用 ，作用时传递参数
                     }
                 })
             }
@@ -35,9 +35,12 @@
 <style scoped lang="less">
     .top {
         height: 100px;
+        width: 100%;
         background: rgba(5, 10, 35, 0.9);
         /*border-bottom: 1px solid rgba(255, 255, 255, 0.50);*/
         position: absolute;
+        top: 0;
+        left: 0;
         z-index: 50;
         min-width: 1920px;
 

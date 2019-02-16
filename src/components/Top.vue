@@ -23,7 +23,6 @@
         },
         methods:{
             intoIndex(){
-                debugger
                 this.$router.push({  //核心语句
                     path:'/',   //跳转的路径
                     query:{           //路由传参时push和query搭配使用 ，作用时传递参数
@@ -39,10 +38,6 @@
         height: 100px;
         background: rgba(0, 0, 0, 0.30);
         border-bottom: 1px solid rgba(255, 255, 255, 0.50);
-        position: absolute;
-        z-index: 50;
-        min-width: 1920px;
-
         .time {
             width: 246px;
             height: 33px;
