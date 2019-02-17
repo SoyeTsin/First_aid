@@ -53,6 +53,13 @@
         },
         methods: {
             getData(cb) {
+                let parameter = {
+                    page: 0,
+                    size: 65535
+                }
+                this.$fetch('/get_by_stats_time/hourly', parameter).then((response) => {
+                    console.log(response)
+                })
                 let newTime = (new Date()).getHours();
                 for (let i = 0; i < 24; i++) {
                     if (i === newTime * 1 && this.mData.a.length <= i) {
