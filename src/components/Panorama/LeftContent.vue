@@ -22,12 +22,6 @@
 </script>
 
 <style scoped>
-    @font-face {
-        font-family: DIN-Regular; //重命名字体名
-        src: url('../../common/font/DIN-RegularAlternate.otf'); //引入字体
-        font-weight: normal;
-        font-style: normal;
-    }
     .left_content {
         width: 460px;
         position: absolute;

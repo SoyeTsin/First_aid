@@ -29,13 +29,7 @@
     }
 </script>
 
-<style scoped>
-    @font-face {
-        font-family: DIN-Regular; //重命名字体名
-        src: url('../../common/font/DIN-RegularAlternate.otf'); //引入字体
-        font-weight: normal;
-        font-style: normal;
-    }
+<style scoped lang="less">
     .right_content {
         width: 510px;
         position: absolute;
@@ -48,5 +42,4 @@
         box-sizing: border-box;
         padding-left: 50px;
     }
-
 </style>

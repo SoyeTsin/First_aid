@@ -63,7 +63,7 @@
                 }
                 let count = 0;
                 for (let i in manData) {
-                    count += manData[i].value;
+                    count += parseInt(manData[i].value);
                 }
 
                 // 绘制图表

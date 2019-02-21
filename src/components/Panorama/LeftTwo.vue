@@ -34,98 +34,122 @@
             }, 10000)
         },
         methods: {
+            getData(cb) {
+                let parameter = {}
+                this.$fetch('/get_by_stats_type/accepted_type', parameter).then((response) => {
+                    cb(response)
+                })
+            },
             drawLine() {
                 let myChart = this.myChart
-                var labelData = ['救治', '下转上', '转运', '分类4', '分类5', '分类6'];
+                var labelData = [];
                 var manData = [
-                    {value: 335 + Math.floor(Math.random() * 100), name: '救治'},
-                    {value: 310 + Math.floor(Math.random() * 100), name: '下转上'},
-                    {value: 234 + Math.floor(Math.random() * 100), name: '转运'},
-                    {value: 135 + Math.floor(Math.random() * 100), name: '分类4'},
-                    {value: 135 + Math.floor(Math.random() * 100), name: '分类5'},
-                    {value: 135 + Math.floor(Math.random() * 100), name: '分类6'},
+                    // {value: 335 + Math.floor(Math.random() * 100), name: '救治'},
+                    // {value: 310 + Math.floor(Math.random() * 100), name: '下转上'},
+                    // {value: 234 + Math.floor(Math.random() * 100), name: '转运'},
+                    // {value: 135 + Math.floor(Math.random() * 100), name: '分类4'},
+                    // {value: 135 + Math.floor(Math.random() * 100), name: '分类5'},
+                    // {value: 135 + Math.floor(Math.random() * 100), name: '分类6'},
                 ];
-                // 绘制图表
-                myChart.setOption({
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
-                    legend: {
-                        type: 'scroll',
-                        selectedMode: false,//取消图例上的点击事件
-                        orient: 'vertical',
-                        right: 50,
-                        top: 20,
-                        bottom: 20,
-                        icon: 'rect ',
-                        itemWidth: 8,
-                        itemHeight: 8,
-                        textStyle: {
-                            color: '#fff',
-                            fontFamily: 'DIN-Bold'
+                this.getData((res) => {
+                    labelData = []
+                    res.sort((a, b) => {
+                        if (a.value > b.value) {
+                            return -1
+                        } else if (a.value < b.value) {
+                            return 1
+                        } else {
+                            return 0
+                        }
+                    })
+                    for (let i in res) {
+                        res[i].name = res[i].name ? res[i].name : '未知'
+                        labelData.push(res[i].name)
+                    }
+                    manData = res
+
+                    // 绘制图表
+                    myChart.setOption({
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
                         },
-                        formatter: function (name) {
-                            var total = 0;
-                            var target;
-                            for (var i = 0, l = manData.length; i < l; i++) {
-                                total += manData[i].value;
-                                if (labelData[i] == name) {
-                                    target = manData[i].value;
+                        legend: {
+                            type: 'scroll',
+                            selectedMode: false,//取消图例上的点击事件
+                            orient: 'vertical',
+                            right: 50,
+                            top: 20,
+                            bottom: 20,
+                            icon: 'rect ',
+                            itemWidth: 8,
+                            itemHeight: 8,
+                            textStyle: {
+                                color: '#fff',
+                                fontFamily: 'DIN-Bold'
+                            },
+                            formatter: function (name) {
+                                var total = 0;
+                                var target;
+                                for (var i = 0, l = manData.length; i < l; i++) {
+                                    total += parseInt(manData[i].value);
+                                    if (labelData[i] == name) {
+                                        target = manData[i].value;
+                                    }
+                                }
+                                var arr = [
+                                    '{a|' + name + '}',
+                                    '{b|' + ((target / total) * 100).toFixed(2) + '%}',
+                                ]
+                                return arr.join('   ')
+                            },
+                            textStyle: {
+                                color: '#ffffff',
+                                fontFamily: 'DIN-Bold',
+                                rich: {
+                                    a: {
+                                        fontSize: 16, fontFamily: 'DIN-Bold',
+                                        position: [0, 0, 0, 10],
+                                        lineHeight: 20
+                                    },
+                                    b: {
+                                        fontSize: 16,
+                                        align: 'right', fontFamily: 'DIN-Bold',
+                                        position: [0, 50, 0, 50]
+                                        , lineHeight: 20
+                                    }
                                 }
                             }
-                            var arr = [
-                                '{a|' + name + '}',
-                                '{b|' + ((target / total) * 100).toFixed(2) + '%}',
-                            ]
-                            return arr.join('   ')
                         },
-                        textStyle: {
-                            color: '#ffffff',
-                            fontFamily: 'DIN-Bold',
-                            rich: {
-                                a: {
-                                    fontSize: 16, fontFamily: 'DIN-Bold',
-                                    position: [0, 0, 0, 10],
-                                    lineHeight: 20
+                        color: ['#006AFF ', '#009ADB', '#00C7DB', '#98EFFF', '#B4C5FF', '#443FC4'],
+                        series: [
+                            {
+                                name: '急救分类',
+                                type: 'pie',
+                                radius: ['40%', '70%'],
+                                center: ['20%', '50%'],
+                                data: manData,
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
                                 },
-                                b: {
-                                    fontSize: 16,
-                                    align: 'right', fontFamily: 'DIN-Bold',
-                                    position: [0, 50, 0, 50]
-                                    , lineHeight: 20
-                                }
+                                label: {
+                                    normal: {
+                                        position: 'inner',
+                                        show: false
+                                    },
+                                    textStyle: {
+                                        color: '#fff',
+                                        fontSize: 18,
+                                        fontFamily: 'DIN-Bold'
+                                    },
+                                },
                             }
-                        }
-                    },
-                    color: ['#006AFF ', '#009ADB', '#00C7DB', '#98EFFF', '#B4C5FF', '#443FC4'],
-                    series: [
-                        {
-                            name: '急救分类',
-                            type: 'pie',
-                            radius: ['40%', '70%'],
-                            center: ['20%', '50%'],
-                            data: manData,
-                            itemStyle: {
-                                emphasis: {
-                                    shadowBlur: 10,
-                                    shadowOffsetX: 0,
-                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    position: 'inner',
-                                    show: false
-                                },
-                                textStyle: {
-                                    color: '#fff',
-                                    fontSize: 18,
-                                    fontFamily: 'DIN-Bold'
-                                },
-                            },
-                        }
-                    ]
+                        ]
+                    });
                 });
             }
         }
@@ -133,13 +157,6 @@
 </script>
 
 <style scoped lang="less">
-    @font-face {
-        font-family: DIN-Bold; //重命名字体名
-        src: url('../../common/font/DIN-Bold.otf'); //引入字体
-        font-weight: normal;
-        font-style: normal;
-    }
-
     .left_one {
         color: #fff;
         padding: 48px 0 0 34px;

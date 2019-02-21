@@ -10,8 +10,8 @@
     <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.l7-1.0.0/dist/l7.min.js"></script>
     <title>浙江急救大数据平台</title>
     <style>
-        *{
-            font-family: MicrosoftYaHei,PingFangSC-Ultralight, sans-serif;
+        * {
+            font-family: MicrosoftYaHei, PingFangSC-Ultralight, sans-serif;
             font-weight: 500;
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
@@ -19,12 +19,14 @@
             -webkit-tap-highlight-color: transparent;
             outline: none;
         }
+
         input {
-            -webkit-user-select:auto; /*webkit浏览器*/
-            user-select:auto;
-            -o-user-select:auto;
-            -ms-user-select:auto;
+            -webkit-user-select: auto; /*webkit浏览器*/
+            user-select: auto;
+            -o-user-select: auto;
+            -ms-user-select: auto;
         }
+
         .amap-marker-label {
             border: none;
         }
@@ -90,6 +92,10 @@
             background-color: rgb(106, 155, 254);
         }
 
+        .hospital .navgtr-top {
+            height: 78px;
+        }
+
         .navgtr-view > div {
             color: #ffffff;
             width: 100%;
@@ -97,8 +103,16 @@
             color: #FFFFFF;
             line-height: 30px;
             letter-spacing: 0.18px;
+            clear: both;
         }
 
+        .hospital.navgtr-view {
+            width: 360px;
+            height: 260px;
+            position: relative;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px 3px #d9d9d9;
+        }
 
         .navgtr-content {
             width: 100%;
@@ -119,10 +133,7 @@
             width: 100%;
             font-size: 16px;
             color: #000000;
-            letter-spacing: 0.18px;
-            line-height: 30px;
-            word-wrap:break-word;
-            box-sizing: border-box;
+            white-space: initial;
         }
 
         .navgtr-view:after {

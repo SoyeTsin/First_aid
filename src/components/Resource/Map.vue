@@ -15,6 +15,8 @@
     import cat from '../../assets/panorama/pic_救护车.png'
     import searchIcon from '../../assets/panorama/icon_搜索.png'
     import searchIconActive from '../../assets/panorama/icon_搜索_active.png'
+    import hospitalData from '../../assets/resource/hospitalAddress.json'
+    import icon_hospital from '../../assets/resource/icon_hospital.png'
     // require('echarts');
     // require('../../lib/extension/bmap');
     // import L7 from '@antv/l7';
@@ -28,11 +30,14 @@
         data() {
             return {
                 mark,
+                hospitalData,
+                icon_hospital,
                 searchIcon,
                 searchIconActive,
                 cat,
                 searchText: '',
                 catList: [],
+                hospitalList: [],
                 placeSearch: {},
             }
         },
@@ -138,7 +143,68 @@
 
                 }
 
+                /**
+                 * 添加医院标识
+                 */
+                let addHospitalIndex = 0;
+
+                addHospitalMark()
+
+                function addHospitalMark() {
+                    if (addHospitalIndex >= hospitalData.length) {
+                        return
+                    }
+
+                    // 创建一个 Marker 实例：
+                    let marker = new AMap.Marker({
+                        icon: that.icon_hospital,  // 自定义点标记覆盖物内容
+                        position: hospitalData[addHospitalIndex].position,   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+                        title: hospitalData[addHospitalIndex].name,
+                        offset: new AMap.Pixel(-36, -36) // 相对于基点的偏移位置
+                    });
+                    //车辆标记和轨迹加入集合中便于操作
+                    that.hospitalList.push({
+                        id: that.hospitalList.length,
+                        marker,
+                        position: hospitalData[addHospitalIndex].position
+                    });
+                    //点标注的点击事件
+                    let obj = hospitalData[addHospitalIndex]
+                    marker.on('click', function (e) {
+                        for (let i in that.hospitalList) {
+                            if (parseInt(i) !== obj.id) {
+                                that.hospitalList[i].marker.setLabel(null)
+                            }
+                        }
+                        if (!marker.getLabel(marker, obj.id)) {
+                            that.getHospitalLabal(marker, obj)
+                        } else {
+                            marker.setLabel(null)
+                        }
+                    });
+                    // 将创建的点标记添加到已有的地图实例：
+                    map.add(marker);
+
+                    addHospitalIndex++;
+
+                    addHospitalMark()
+                }
+
                 that.pathSearch()
+
+            },
+            getHospitalLabal(marker, hospitalDataObj) {
+                //自定义标签
+                let content = '<div class="navgtr-view hospital"  >' +
+                    '<div class="navgtr-top "><div>' + hospitalDataObj.name + '</div></div>' +
+                    '<div class="navgtr-content">' +
+                    '<div class="navgtr-text">法人：' + hospitalDataObj.corporation + '</div>' +
+                    '<div class="navgtr-text">电话：' + hospitalDataObj.telephone + '</div>' +
+                    '<div class="navgtr-text address" title="' + hospitalDataObj.address + '">地址：' + hospitalDataObj.address + '</div></div>';
+                marker.setLabel({
+                    content,
+                    offset: new AMap.Pixel(-148, -280)
+                })
             },
             intoMark(obj, e) {
                 this.map.setZoomAndCenter(15, [e.lnglat.P + 0.01, e.lnglat.O - 0.004]);
@@ -264,12 +330,6 @@
 
 <style scoped lang="less">
     @map_height: 1080px;
-    @font-face {
-        font-family: DIN-Bold; //重命名字体名
-        src: url('../../common/font/DIN-Bold.otf'); //引入字体
-        font-weight: normal;
-        font-style: normal;
-    }
 
     #panel {
         position: absolute;

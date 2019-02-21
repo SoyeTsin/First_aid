@@ -43,13 +43,6 @@
 </script>
 
 <style scoped lang="less">
-    @font-face {
-        font-family: DIN-Bold; //重命名字体名
-        src: url('../common/font/DIN-Bold.otf'); //引入字体
-        font-weight: normal;
-        font-style: normal;
-    }
-
     .map-body {
         min-width: 1920px;
         min-height: 1080px;

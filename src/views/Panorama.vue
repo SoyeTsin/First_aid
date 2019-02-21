@@ -6,6 +6,7 @@
             <RightContent></RightContent>
             <BottomContent></BottomContent>
             <MiddleContent></MiddleContent>
+            <div class="beizhu">急救分类/24小时趋势/事件数/出车数使用真实数据，其他模块使用模拟数据</div>
         </div>
     </div>
 </template>
@@ -37,6 +38,15 @@
 <style scoped lang="less">
     @bodyHeight: 1080px;
     @bodyWidth: 1920px;
+    .beizhu {
+        position: absolute;
+        top: 75px;
+        font-size: 12px;
+        width: 100%;
+        color: red;
+        text-align: center;
+    }
+
     .pan-body {
         background-color: #0a0f25;
         min-width: @bodyWidth;

@@ -2,7 +2,7 @@ import axios from 'axios';
 // import {Message} from 'element-ui';
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://129.204.70.98:8080/stats';
+axios.defaults.baseURL = 'https://www.nodejslive.com/api';
 
 
 //http request 拦截器

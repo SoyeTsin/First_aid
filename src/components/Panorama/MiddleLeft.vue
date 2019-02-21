@@ -148,7 +148,7 @@
                             var datasCssStyle = '<div style="text-align:center;float:right;">';
                             // var initCssStyle = '<div style="text-align:center;float:right;">';
                             var lineName = '<h3>' + params.name + '</h3>' + '救治人数' + ':' + datasCssStyle + params.value[2] + '</div>' + '<br>' +
-                                '调度接警数' + ':' + datasCssStyle + params.value[3] + '</div>' + '<br>' +
+                                '事件数' + ':' + datasCssStyle + params.value[3] + '</div>' + '<br>' +
                                 '出车数' + ':' + datasCssStyle + params.value[4] + '</div>' + '<br>';
                             return lineName;
                         },

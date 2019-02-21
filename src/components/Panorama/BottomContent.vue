@@ -1,12 +1,11 @@
 <template>
     <div class="bottom-content">
         <div class="top">
-            <p class="title">24小时接警/事件趋势图</p>
+            <p class="title">24小时事件/出车趋势图</p>
         </div>
         <div class="content" ref="mychart">
         </div>
         <div>
-
         </div>
     </div>
 </template>
@@ -34,14 +33,6 @@
             // 基于准备好的dom，初始化echarts实例
             let dom = this.$refs.mychart;
             this.myChart = this.$echarts.init(dom, 'light')
-            let newTime = (new Date()).getHours();
-            for (let i = 0; i < 24; i++) {
-                this.labelData.push((i < 10 ? ('0' + i) : i) + ':00');
-                if (i < newTime * 1) {
-                    this.mData.a.push(500 + Math.floor(Math.random() * 500))
-                    this.mData.b.push(500 + Math.floor(Math.random() * 500))
-                }
-            }
             this.getData(() => {
                 this.drawLine();
             })
@@ -55,19 +46,44 @@
             getData(cb) {
                 let parameter = {
                     page: 0,
-                    size: 65535
+                    size: 24
                 }
                 this.$fetch('/get_by_stats_time/hourly', parameter).then((response) => {
                     console.log(response)
-                })
-                let newTime = (new Date()).getHours();
-                for (let i = 0; i < 24; i++) {
-                    if (i === newTime * 1 && this.mData.a.length <= i) {
-                        this.mData.a.push(500 + Math.floor(Math.random() * 500))
-                        this.mData.b.push(500 + Math.floor(Math.random() * 500))
+                    this.labelData = []
+                    for (let i in response.acceptedStats) {
+                        this.labelData.push(response.acceptedStats[i].name)
                     }
-                }
-                cb()
+                    this.mData.a = response.acceptedStats
+                    this.mData.b = response.ambulOutStats
+                    let tt = JSON.parse(JSON.stringify(this.labelData))
+                    console.log(tt[0].substring(5, 10))
+                    let ttStr = tt[0]
+                    let yyStr = 0
+                    let yyNum = 0;
+                    for (let i in tt) {
+                        if (ttStr.substring(5, 10) == tt[i].substring(5, 10)) {
+                            if (i > 0) {
+                                tt[i] = tt[i].substring(11, 13)
+                            } else {
+                                tt[i] = tt[i].substring(5, tt[i].length)
+                            }
+                        } else {
+                            if (yyStr == 0) {
+                                yyStr = tt[i]
+                                yyNum = i
+                            }
+                            if (i == yyNum) {
+                                tt[i] = tt[i].substring(5, tt[i].length)
+                            } else {
+                                tt[i] = tt[i].substring(11, 13)
+                            }
+
+                        }
+                    }
+                    this.labelData = tt
+                    cb()
+                })
             },
             drawLine() {
                 const that = this
@@ -82,7 +98,7 @@
                         formatter: function (params, ticket, callback) {
                             console.log(params);
                             let index = params.dataIndex
-                            let showHtm = '接警：' + mData.a[index] + '<br>事件：' + mData.b[index]
+                            let showHtm = '时间：' + mData.a[index].name + '<br>事件：' + mData.a[index].value + '<br>出车：' + mData.b[index].value
                             return showHtm;
                         },
                         backgroundColor: "#050A23",            //标题背景色
@@ -98,7 +114,7 @@
                         y: 'top', // 'center' | 'bottom' | {number}
                         data: [
                             {
-                                name: '接警',
+                                name: '事件',
                                 textStyle: {
                                     fontWeight: 'bolder',
                                     padding: [10, 10, 10, 10],
@@ -106,7 +122,7 @@
                                 },
                             },
                             {
-                                name: '事件',
+                                name: '出车',
                                 textStyle: {
                                     fontSize: 12,
                                     fontWeight: 'bolder',
@@ -118,8 +134,8 @@
 
                     },
                     grid: {
-                        left: '0',
-                        right: '50',
+                        left: '40',
+                        right: '80',
                         bottom: '3%',
                         containLabel: true
                     },
@@ -130,6 +146,8 @@
                             data: labelData,
                             axisLabel: {
                                 show: true,
+                                interval: 0,
+                                rotate: 20,
                                 textStyle: {
                                     color: ['#BBDBFF']
                                     , fontFamily: 'DIN-Bold'
@@ -166,7 +184,7 @@
                     ],
                     series: [
                         {
-                            name: '接警',
+                            name: '事件',
                             type: 'line',
                             stack: '总量',
                             symbol: 'circle',     //设定为实心点
@@ -193,7 +211,7 @@
                             },
                             data: mData.a
                         }, {
-                            name: '事件',
+                            name: '出车',
                             type: 'line',
                             stack: '总量',
                             symbol: 'circle',     //设定为实心点

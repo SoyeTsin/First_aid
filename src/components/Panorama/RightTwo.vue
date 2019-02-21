@@ -2,7 +2,7 @@
     <div class="left_one">
         <div class="top">
             <img :src="rightIcon" class="right_icon">
-            <p class="title">调度接警数</p>
+            <p class="title">事件数</p>
             <img :src="line_2" class="right_line">
         </div>
         <div class="content" ref="mychart">
@@ -24,11 +24,11 @@
                 line_2,
                 mychart: {},
                 manData: [
-                    {value: 20 + Math.floor(Math.random() * 10), name: '杭州'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '绍兴'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '温州'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '嘉兴'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '舟山'},
+                    {value: 0, name: '杭州'},
+                    {value: 0, name: '绍兴'},
+                    {value: 0, name: '温州'},
+                    {value: 0, name: '嘉兴'},
+                    {value: 0, name: '舟山'},
                 ]
             }
         },
@@ -36,19 +36,27 @@
             // 基于准备好的dom，初始化echarts实例
             let dom = this.$refs.mychart;
             this.myChart = this.$echarts.init(dom, 'light')
-            this.drawLine();
+            this.getData();
             setInterval(() => {
-                for (let i in this.manData) {
-                    this.manData[i].value += Math.floor(Math.random() * 2)
-                }
-                this.drawLine()
+                this.getData();
             }, 3000)
         },
         methods: {
+            getData() {
+                let parameter = {}
+                this.$fetch('/get_by_stats_type/accepted_district', parameter).then((response) => {
+                    for (let i in this.manData) {
+                        if (this.manData[i].name == '嘉兴') {
+                            this.manData[i].value = response[0].value
+                        }
+                    }
+                    this.drawLine()
+                })
+            },
             drawLine() {
                 let myChart = this.myChart
                 var labelData = []
-                var manData =this.manData;
+                var manData = this.manData;
                 manData.sort((b, a) => {
                     if (a.value > b.value) {
                         return 1;
@@ -63,7 +71,7 @@
                 }
                 let count = 0;
                 for (let i in manData) {
-                    count += manData[i].value;
+                    count += parseInt(manData[i].value);
                 }
                 // 绘制图表
                 myChart.setOption({
@@ -206,6 +214,7 @@
                 text-indent: 6px;
             }
         }
+
         .top5 {
             position: absolute;
             top: 100px;
