@@ -24,11 +24,11 @@
                 line_2,
                 mychart: {},
                 manData: [
-                    {value: 20 + Math.floor(Math.random() * 10), name: '杭州'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '绍兴'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '温州'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '嘉兴'},
-                    {value: 20 + Math.floor(Math.random() * 10), name: '舟山'},
+                    {value: 0, name: '杭州'},
+                    {value: 0, name: '绍兴'},
+                    {value: 0, name: '温州'},
+                    {value: 0, name: '嘉兴'},
+                    {value: 0, name: '舟山'},
                 ]
             }
         },
@@ -38,9 +38,9 @@
             this.myChart = this.$echarts.init(dom, 'light')
             this.drawLine()
             setInterval(() => {
-                for (let i in this.manData) {
-                    this.manData[i].value += Math.floor(Math.random() * 2)
-                }
+                // for (let i in this.manData) {
+                //     this.manData[i].value += Math.floor(Math.random() * 2)
+                // }
                 this.drawLine()
             }, 3000)
         },

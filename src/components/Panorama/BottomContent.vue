@@ -54,8 +54,8 @@
                     for (let i in response.acceptedStats) {
                         this.labelData.push(response.acceptedStats[i].name)
                     }
-                    this.mData.a = response.acceptedStats
-                    this.mData.b = response.ambulOutStats
+                    this.mData.a = response.ambulOutStats
+                    this.mData.b = response.acceptedStats
                     let tt = JSON.parse(JSON.stringify(this.labelData))
                     console.log(tt[0].substring(5, 10))
                     let ttStr = tt[0]
@@ -114,7 +114,7 @@
                         y: 'top', // 'center' | 'bottom' | {number}
                         data: [
                             {
-                                name: '事件',
+                                name: '出车',
                                 textStyle: {
                                     fontWeight: 'bolder',
                                     padding: [10, 10, 10, 10],
@@ -122,7 +122,7 @@
                                 },
                             },
                             {
-                                name: '出车',
+                                name: '事件',
                                 textStyle: {
                                     fontSize: 12,
                                     fontWeight: 'bolder',
@@ -184,7 +184,7 @@
                     ],
                     series: [
                         {
-                            name: '事件',
+                            name: '出车',
                             type: 'line',
                             stack: '总量',
                             symbol: 'circle',     //设定为实心点
@@ -211,7 +211,7 @@
                             },
                             data: mData.a
                         }, {
-                            name: '出车',
+                            name: '事件',
                             type: 'line',
                             stack: '总量',
                             symbol: 'circle',     //设定为实心点

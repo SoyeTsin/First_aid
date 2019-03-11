@@ -37,14 +37,14 @@
             drawLine() {
                 let myChart = this.myChart
                 var manData = [
-                    {value: 12 + Math.floor(Math.random() * 10), name: '已处理'},
-                    {value: 8 + Math.floor(Math.random() * 10), name: '待处理'},
+                    {value: 0, name: '已处理'},
+                    {value: 0, name: '待处理'},
                 ];
                 // 绘制图表
                 myChart.setOption({
                     title: {
                         text: manData[0].value + manData[1].value,
-                        x: '60',
+                        x: '70',
                         y: 'center',
                         textStyle: {
                             fontWeight: '600',

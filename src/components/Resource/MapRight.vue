@@ -290,7 +290,6 @@
             }
 
             > .head {
-                font-family: MicrosoftYaHei;
                 font-size: 24px;
                 color: #FFFFFF;
                 letter-spacing: 0;

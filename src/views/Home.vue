@@ -67,7 +67,6 @@
         }
 
         .title {
-            font-family: MicrosoftYaHei;
             font-size: 54px;
             color: #FFFFFF;
             letter-spacing: 0;

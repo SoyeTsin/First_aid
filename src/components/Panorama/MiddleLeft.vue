@@ -56,7 +56,8 @@
                 let getData = (e) => {
                     let E = e || 100;
                     let arr = [parseInt(Math.floor(Math.random() * E) + E), parseInt(Math.floor(Math.random() * E) + E), parseInt(Math.floor(Math.random() * E) + E)]
-                    return arr
+                    // return arr
+                    return [0,0,0]
                 }
                 var cityData = [
                     {

@@ -21,9 +21,9 @@
                 line_1,
                 mychart: {},
                 manData: [
-                    {value: 5 + Math.floor(Math.random() * 10), name: '正常'},
-                    {value: 5 + Math.floor(Math.random() * 10), name: '预警'},
-                    {value: 5 + Math.floor(Math.random() * 10), name: '繁忙'},
+                    {value: 30, name: '正常'},
+                    {value: 0, name: '预警'},
+                    {value: 0, name: '繁忙'},
                 ]
             }
         },
@@ -35,9 +35,9 @@
             this.drawLine();
             setInterval(() => {
                 this.manData = [
-                    {value: 5 + Math.floor(Math.random() * 10), name: '正常'},
-                    {value: 5 + Math.floor(Math.random() * 10), name: '预警'},
-                    {value: 5 + Math.floor(Math.random() * 10), name: '繁忙'},
+                    {value: 30, name: '正常'},
+                    {value: 0, name: '预警'},
+                    {value: 0, name: '繁忙'},
                 ]
                 this.manData[2].value = 30 - this.manData[0].value - this.manData[1].value
                 this.drawLine()

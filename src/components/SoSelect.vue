@@ -75,7 +75,6 @@
             white-space: nowrap;
 
             > div {
-                font-family: 'MicrosoftYaHei';
                 font-size: 18px;
                 color: #FFFFFF;
                 letter-spacing: 0;

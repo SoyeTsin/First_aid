@@ -37,8 +37,8 @@
             drawLine() {
                 let myChart = this.myChart
                 var labelData = ['医生', '护士', '司机', '车辆'];
-                var manData = [240 + Math.floor(Math.random() * 100), 269 + Math.floor(Math.random() * 100), 360 + Math.floor(Math.random() * 100), 183 + Math.floor(Math.random() * 100)];
-                var womanData = [-186 - Math.floor(Math.random() * 100), -248 - Math.floor(Math.random() * 100), -106 - Math.floor(Math.random() * 100), -30 - Math.floor(Math.random() * 100)];
+                var manData = [0, 0, 0, 0];
+                var womanData = [0, 0, 0, 0];
                 // 绘制图表
                 myChart.setOption({
                     // backgroundColor: '#fff',
@@ -266,7 +266,6 @@
             }
 
             .title {
-                font-family: MicrosoftYaHei;
                 font-size: 24px;
                 color: #FFFFFF;
                 letter-spacing: 0;
